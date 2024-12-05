@@ -1,18 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const stories = [
-  {
-    title: "Cerita 1",
-    content: "Ini adalah cerita pertama",
-    image: "url-gambar-1",
-  },
-  {
-    title: "Cerita 2",
-    content: "Ini adalah cerita kedua",
-    image: "url-gambar-2",
-  },
-];
+const stories = require("../res/resCerita");
 
 // Daftar cerita
 router.get("/cerita", (req, res) => {

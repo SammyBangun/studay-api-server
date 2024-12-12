@@ -1,3 +1,78 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Aljabar
+ *   description: Matematika Dasar
+ *
+ * /angka:
+ *   get:
+ *     summary: Menampilkan semua formula angka
+ *     tags: [Aljabar]
+ *     responses:
+ *       200:
+ *         description: Menampilkan semua formula angka
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Aljabar'
+ *
+ * /penjumlahan:
+ *   get:
+ *     summary: Menampilkan formula penjumlahan
+ *     tags: [Aljabar]
+ *     parameters:
+ *       - in: query
+ *         name: formula
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Formula penjumlahan
+ *     responses:
+ *       200:
+ *         description: Menampilkan formula penjumlahan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Aljabar'
+ *
+ * /pengurangan:
+ *   get:
+ *     summary: Menampilkan formula pengurangan
+ *     tags: [Aljabar]
+ *     parameters:
+ *       - in: query
+ *         name: formula
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Formula pengurangan
+ *     responses:
+ *       200:
+ *         description: Menampilkan formula pengurangan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Aljabar'
+ *
+ * components:
+ *   schemas:
+ *     Aljabar:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID formula aljabar
+ *         formula:
+ *           type: string
+ *           description: Formula aljabar
+ *         description:
+ *           type: string
+ *           description: Deskripsi formula aljabar
+ *
+ */
+
 const express = require("express");
 const router = express.Router();
 
@@ -13,40 +88,40 @@ router.get("/aljabar", (req, res) => {
   res.json(aljabarData);
 });
 
-// POST - Menambahkan formula aljabar baru
-router.post("/aljabar", (req, res) => {
-  const { formula, description } = req.body;
-  const newFormula = { id: aljabarData.length + 1, formula, description };
-  aljabarData.push(newFormula);
-  res.status(201).json(newFormula);
+// GET - Endpoint untuk angka (1-9)
+router.get("/angka", (req, res) => {
+  const angka = Array.from({ length: 9 }, (_, i) => i + 1);
+  res.json(angka);
 });
 
-// PUT - Mengupdate formula aljabar berdasarkan ID
-router.put("/aljabar/:id", (req, res) => {
-  const { id } = req.params;
-  const { formula, description } = req.body;
+// GET - Penjumlahan dua angka
+router.get("/penjumlahan", (req, res) => {
+  const { angka1, angka2 } = req.query;
 
-  let formulaIndex = aljabarData.findIndex((item) => item.id == id);
-
-  if (formulaIndex !== -1) {
-    aljabarData[formulaIndex] = { id: parseInt(id), formula, description };
-    res.json(aljabarData[formulaIndex]);
-  } else {
-    res.status(404).json({ message: "Formula not found" });
+  // Validasi input
+  if (!angka1 || !angka2 || isNaN(angka1) || isNaN(angka2)) {
+    return res
+      .status(400)
+      .json({ message: "Masukkan angka1 dan angka2 yang valid" });
   }
+
+  const hasil = parseInt(angka1) + parseInt(angka2);
+  res.json({ angka1: parseInt(angka1), angka2: parseInt(angka2), hasil });
 });
 
-// DELETE - Menghapus formula aljabar berdasarkan ID
-router.delete("/aljabar/:id", (req, res) => {
-  const { id } = req.params;
-  const formulaIndex = aljabarData.findIndex((item) => item.id == id);
+// GET - Pengurangan dua angka
+router.get("/pengurangan", (req, res) => {
+  const { angka1, angka2 } = req.query;
 
-  if (formulaIndex !== -1) {
-    const deletedFormula = aljabarData.splice(formulaIndex, 1);
-    res.json(deletedFormula);
-  } else {
-    res.status(404).json({ message: "Formula not found" });
+  // Validasi input
+  if (!angka1 || !angka2 || isNaN(angka1) || isNaN(angka2)) {
+    return res
+      .status(400)
+      .json({ message: "Masukkan angka1 dan angka2 yang valid" });
   }
+
+  const hasil = parseInt(angka1) - parseInt(angka2);
+  res.json({ angka1: parseInt(angka1), angka2: parseInt(angka2), hasil });
 });
 
 module.exports = router;

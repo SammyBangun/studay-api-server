@@ -5,7 +5,7 @@ const swaggerjsdoc = require("swagger-jsdoc");
 const swaggerui = require("swagger-ui-express");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // Middleware CORS
 app.use(cors());
@@ -33,7 +33,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://0.0.0.0:8080",
       },
     ],
   },
@@ -48,5 +48,5 @@ app.use("/api-docs", swaggerui.serve, swaggerui.setup(specs));
 
 // Jalankan server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://0.0.0.0:${port}`);
 });

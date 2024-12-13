@@ -4,9 +4,9 @@
  *   name: User
  *   description: User management
  *
- * /register:
+ * /studay/register:
  *   post:
- *     summary: Register a new user
+ *     summary: Register user baru
  *     tags: [User]
  *     requestBody:
  *       required: true
@@ -45,7 +45,7 @@
  *       500:
  *         description: Error during registration
  *
- * /login:
+ * /studay/login:
  *   post:
  *     summary: Login user
  *     tags: [User]
@@ -84,9 +84,9 @@
  *       500:
  *         description: Error during login
  *
- * /profile:
+ * /studay/profile:
  *   get:
- *     summary: Get user profile
+ *     summary: Mendapatkan user profile
  *     tags: [User]
  *     security:
  *       - bearerAuth: []
@@ -114,6 +114,12 @@
  *       500:
  *         description: Error retrieving user profile
  *
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 require("dotenv").config();

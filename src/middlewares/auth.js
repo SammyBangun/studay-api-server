@@ -7,10 +7,10 @@ const authenticateFirebase = async (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
 
-  const token = authHeader.split(" ")[1];
+  const token = authHeader.split(" ")[1]; // Ambil token setelah "Bearer"
 
   try {
-    // Gunakan verifyIdToken untuk memvalidasi token
+    // Verifikasi token untuk mendapatkan UID
     const decodedToken = await admin.auth().verifyIdToken(token);
 
     req.user = {
@@ -21,7 +21,7 @@ const authenticateFirebase = async (req, res, next) => {
     next(); // Lanjutkan ke handler berikutnya
   } catch (error) {
     return res.status(401).json({
-      message: "Unauthorized Invalid token",
+      message: "Unauthorized: Invalid token",
       error: error.message || error,
     });
   }

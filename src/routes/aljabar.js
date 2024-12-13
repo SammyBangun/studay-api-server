@@ -4,7 +4,7 @@
  *   name: Aljabar
  *   description: Matematika Dasar
  *
- * /angka:
+ * /studay/angka:
  *   get:
  *     summary: Menampilkan semua formula angka
  *     tags: [Aljabar]
@@ -18,7 +18,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Aljabar'
  *
- * /penjumlahan:
+ * /studay/penjumlahan:
  *   get:
  *     summary: Menampilkan formula penjumlahan
  *     tags: [Aljabar]
@@ -37,7 +37,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Aljabar'
  *
- * /pengurangan:
+ * /studay/pengurangan:
  *   get:
  *     summary: Menampilkan formula pengurangan
  *     tags: [Aljabar]

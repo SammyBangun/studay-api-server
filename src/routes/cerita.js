@@ -4,7 +4,7 @@
  *   name: Cerita
  *   description: Kumpulan cerita pendek
  *
- * /cerita:
+ * /studay/cerita:
  *   get:
  *     summary: Menampilkan semua cerita
  *     tags: [Cerita]

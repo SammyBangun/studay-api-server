@@ -27,8 +27,6 @@ const options = {
       description: "API documentation for Studay",
       contact: {
         name: "Studay",
-        url: "studay.com",
-        email: "studay@example.com",
       },
     },
     servers: [
